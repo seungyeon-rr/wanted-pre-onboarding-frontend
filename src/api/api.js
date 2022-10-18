@@ -3,11 +3,11 @@ import axios from 'axios';
 const baseURL = 'https://pre-onboarding-selection-task.shop/';
 const config = {
   headers: {
-    'content-type': 'application/json',
+    'Content-Type': 'application/json',
   },
 };
 
-export function postSignupAPI(data) {
+export function postSignUpAPI(data) {
   return axios.post(baseURL + 'auth/signup', { ...data }, config);
 }
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { postSignupAPI } from '../../../api/api';
+import { postSignUpAPI } from '../../../api/api';
 import { Container, Form, Button } from 'react-bootstrap';
 
 const SignUp = () => {
@@ -25,15 +25,16 @@ const SignUp = () => {
     } else if (password.length < 8) {
       alert('비밀번호는 8자리 이상 입력해주세요.');
     } else {
-      postSignupAPI(inputValue)
+      postSignUpAPI(inputValue)
         .then(res => {
           console.log(res);
-          res.statusCode === 201 &&
+          res.statusText === 'Created' &&
             localStorage.setItem('jwt', res.data.access_token);
           navigate('/todo');
         })
-        .catch(error => {
+        .catch(err => {
           // 오류발생시 실행
+          console.log(err);
         });
     }
   };
