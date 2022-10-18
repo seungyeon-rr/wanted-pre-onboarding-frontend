@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { postSignUpAPI } from '../../../api/api';
 import { Container, Form, Button } from 'react-bootstrap';
 
 const SignUp = () => {
-  const navigate = useNavigate();
   const [inputValue, setInputValue] = useState({
     email: '',
     password: '',
@@ -17,8 +15,8 @@ const SignUp = () => {
     setInputValue({ ...inputValue, [name]: value });
   };
 
-  const goSignup = () => {
-    if (email.length == 0 || email.value === '') {
+  const goSignUp = () => {
+    if (email.length == 0 || email.valueOf === '') {
       alert('이메일이 비어있습니다.');
     } else if (!email.includes('@')) {
       alert('이메일 형식이 아닙니다.');
@@ -27,13 +25,11 @@ const SignUp = () => {
     } else {
       postSignUpAPI(inputValue)
         .then(res => {
-          console.log(res);
-          res.statusText === 'Created' &&
-            localStorage.setItem('jwt', res.data.access_token);
-          navigate('/todo');
+          res.statusCode === 201 &&
+            localStorage.setItem('access_token', res.data.access_token);
+          alert('회원가입 성공! \n로그인을 시도해주세요.');
         })
         .catch(err => {
-          // 오류발생시 실행
           console.log(err);
         });
     }
@@ -66,7 +62,7 @@ const SignUp = () => {
         className="d-flex mx-auto"
         variant="primary"
         onClick={() => {
-          goSignup();
+          goSignUp();
         }}
       >
         Submit
