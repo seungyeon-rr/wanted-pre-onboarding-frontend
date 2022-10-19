@@ -1,6 +1,6 @@
 # 원티드 프리온보딩 프론트엔드 코스 선발과제
 
-[배포링크](https://ryu-project.netlify.app/)
+[배포링크](https://preonboarding-seungyeon.netlify.app/)
 
 
 ## 구현사항
