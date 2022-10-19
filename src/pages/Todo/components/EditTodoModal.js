@@ -1,17 +1,45 @@
+import { useState } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
+import { updateTodoAPI } from '../../../api/api';
 
-const EditTodoModal = ({ setListData }) => {
+const EditTodoModal = ({ show, setShow, setListData, modalValue }) => {
+  const [editValue, setEditValue] = useState('');
+  const hendleFixValue = e => {
+    setEditValue(e.target.value);
+  };
+  const editTodo = () => {
+    updateTodoAPI(modalValue, editValue, false).then(res => {
+      setListData(res.data);
+      setShow(prev => !prev);
+    });
+  };
+
   return (
-    <Modal>
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          할 일 수정하기
-        </Modal.Title>
+    <Modal show={show} centered>
+      <Modal.Header
+        closeButton
+        onClick={() => {
+          setShow(prev => !prev);
+        }}
+      >
+        <Modal.Title>할 일 수정하기</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form.Control className="me-auto" placeholder="할일을 수정하세요" />
+        <Form.Control
+          className="me-auto"
+          placeholder="할일을 수정하세요"
+          onChange={e => {
+            hendleFixValue(e);
+          }}
+        />
       </Modal.Body>
-      <Button>수정하기</Button>
+      <Button
+        onClick={() => {
+          editTodo();
+        }}
+      >
+        수정하기
+      </Button>
     </Modal>
   );
 };

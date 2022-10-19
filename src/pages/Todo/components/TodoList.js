@@ -97,7 +97,7 @@ const Todolist = ({ listData, setListData }) => {
       </ListGroup>
       <EditTodoModal
         show={show}
-        onHide={handleClose}
+        setShow={setShow}
         modalValue={modalValue}
         setListData={setListData}
       />
