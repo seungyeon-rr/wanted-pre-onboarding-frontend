@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import TodoList from './components/TodoList';
@@ -13,6 +13,10 @@ const Todo = () => {
     localStorage.removeItem('access_token');
     navigate('/');
   };
+
+  useEffect(() => {
+    !localStorage.getItem('access_token') && navigate('/');
+  }, []);
 
   return (
     <TodoWrap>
