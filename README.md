@@ -1,5 +1,7 @@
 # 원티드 프리온보딩 프론트엔드 코스 선발과제
 
+[선발과제 안내 링크](https://github.com/walking-sunset/selection-task)
+
 기간 : 22/10/18 - 22/10/20
 
 [배포링크](https://preonboarding-seungyeon.netlify.app/)
