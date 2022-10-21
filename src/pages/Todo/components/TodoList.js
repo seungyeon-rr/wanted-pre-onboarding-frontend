@@ -15,11 +15,9 @@ import { MdBorderColor, MdDelete } from 'react-icons/md';
 const Todolist = ({ listData, setListData }) => {
   const [modalValue, setModalValue] = useState(null);
   const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const fatchDate = () => {
+  const fatchData = () => {
     getTodoAPI().then(res => {
       setListData(res.data);
     });
@@ -38,7 +36,7 @@ const Todolist = ({ listData, setListData }) => {
   };
 
   useEffect(() => {
-    fatchDate();
+    fatchData();
   }, []);
 
   return (
@@ -48,30 +46,32 @@ const Todolist = ({ listData, setListData }) => {
           const { id, isCompleted, todo } = item;
           return (
             <ListGroup.Item as="li" key={id}>
-              <ToggleButton
-                id="toggle-check"
-                type="checkbox"
-                checked={isCompleted}
-                onClick={() => {
-                  !isCompleted
-                    ? isChecked(id, todo, true)
-                    : isChecked(id, todo, false);
-                }}
-              >
-                {isCompleted ? <ImCheckboxUnchecked /> : <ImCheckboxChecked />}
-              </ToggleButton>
-              <Row>
+              <ListWrap>
+                <Col>
+                  <ToggleButton
+                    id="toggle-check"
+                    type="checkbox"
+                    checked={isCompleted}
+                    onClick={() => {
+                      !isCompleted
+                        ? isChecked(id, todo, true)
+                        : isChecked(id, todo, false);
+                    }}
+                  >
+                    {isCompleted ? (
+                      <ImCheckboxUnchecked />
+                    ) : (
+                      <ImCheckboxChecked />
+                    )}
+                  </ToggleButton>
+                </Col>
                 {isCompleted ? (
-                  <CompleteTodo xs={12} md={8}>
-                    {todo}
-                  </CompleteTodo>
+                  <CompleteTodo xs={7}>{todo}</CompleteTodo>
                 ) : (
-                  <Col xs={12} md={8}>
-                    {todo}
-                  </Col>
+                  <Col xs={7}>{todo}</Col>
                 )}
 
-                <Col>
+                <ButtonWrap>
                   <Button
                     variant="success"
                     onClick={() => {
@@ -80,7 +80,7 @@ const Todolist = ({ listData, setListData }) => {
                     }}
                   >
                     <MdBorderColor />
-                  </Button>
+                  </Button>{' '}
                   <Button
                     variant="danger"
                     onClick={() => {
@@ -89,8 +89,8 @@ const Todolist = ({ listData, setListData }) => {
                   >
                     <MdDelete />
                   </Button>
-                </Col>
-              </Row>
+                </ButtonWrap>
+              </ListWrap>
             </ListGroup.Item>
           );
         })}
@@ -107,7 +107,15 @@ const Todolist = ({ listData, setListData }) => {
 
 export default Todolist;
 
+const ListWrap = styled(Row)`
+  align-items: center;
+`;
+
 const CompleteTodo = styled(Col)`
   color: #999;
   text-decoration: line-through;
+`;
+
+const ButtonWrap = styled(Col)`
+  text-align: center;
 `;

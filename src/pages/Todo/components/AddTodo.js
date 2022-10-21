@@ -1,10 +1,9 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Stack, Form, Button } from 'react-bootstrap';
 import { createTodoAPI } from '../../../api/api';
 
 const AddTodo = ({ setListData }) => {
   const [value, setValue] = useState('');
-  const inputRef = useRef(null);
 
   const onChangeInput = useCallback(e => {
     setValue(e.target.value);
@@ -14,7 +13,6 @@ const AddTodo = ({ setListData }) => {
     createTodoAPI(value).then(res => {
       setListData(res.data);
       setValue('');
-      // inputRef.current.focus();
     });
   };
 
@@ -22,7 +20,7 @@ const AddTodo = ({ setListData }) => {
     <Stack direction="horizontal" gap={3} className="mb-4">
       <Form.Control
         className="me-auto"
-        placeholder="Add your item here..."
+        placeholder="할 일을 추가하세요."
         value={value}
         onChange={e => {
           onChangeInput(e);
